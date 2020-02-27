@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<h1>Quick Pick</h1>
+<head>
+	<meta charset="utf-8/">
+	<title> Javascript</title>
+</head>
+  <style type = "text/css">
+	p{ 
+		color: blue;
+		font-style: arial;
+		font-size: 20px;
+	}
+</style>
+
+
+<body>
+
+	<form>
+		<!-- User input -->
+		Enter a 5 numbers <br /> (1 - 48, seperated by a single space) <br /> 
+		<!-- User's lotto numbers -->
+		<input type="text" id="number"/> 
+		<br />
+		Enter one Lucky Ball number  <br />(1-18)<br /> 
+		<!-- User's lucky ball number -->
+		<input type="text" id="ball-number"/>
+		<br />
+
+	</form>
+	<!-- IDs and command -->
+	<button onclick="userNums()">I'm feeling lucky!</button>
+	<br /> <p>Our numbers </p>
+	<div id = "ourLotto" > Lotto Numbers: </div> 
+	<div id = "ourBall" > Lucky Ball Number: </div><br />
+	<br /> <p>Your numbers </p>
+	<div id = "userLotto" > Your Lotto Numbers: </div>   
+	<div id = "userBall"  > Your Lucky Ball Number: </div><br /> 
+	<br /> <p>Matches </p>
+	<div id = "comparison" > Your matches: </div>
+	
+	<br />
+	<script language="Javascript">
+
+	//Handles all user input
+	function userNums(){
+		var arr;
+		arr = document.getElementById("number").value;
+		var splitArr = new Array(5);
+		splitArr = arr.split(" ");
+
+		for(i = 0; i < 5; i++){
+			splitArr[i] = parseInt(splitArr[i], 10);
+		}
+
+		for (i = 0; i < 5; i++){
+			document.getElementById("userLotto").innerHTML+= splitArr[i] + "&nbsp;";
+		}
+
+		var luckyNum = document.getElementById("ball-number").value;
+		document.getElementById("userBall").innerHTML += luckyNum +"&nbsp;";
+	
+
+	//Handles making and printing random numbers
+		var numbers = new Array(5);
+			//feeds random nums into array
+		 	for(i = 0; i < 5; i++){
+				n = Math.floor(Math.random()* 49 + 1);
+				numbers[i] = n;
+			}
+
+			//Sorts and prints the array
+			for(i = 0; i < 5; i++){
+				numbers.sort(function(a, b){return a - b});
+			}
+			document.getElementById("ourLotto").innerHTML += numbers +"&nbsp;";
+
+			//Creates and prints the lucky ball num
+			j = Math.floor(Math.random() * 19 + 1);
+			document.getElementById("ourBall").innerHTML += j +"&nbsp;";
+
+			//Compares the numbers
+			var counter = 0; 
+			for (i = 0; i < 5; i++){
+				for (j = 0; j < 5; j++){
+					if(splitArr[i] == numbers[j])counter++;
+				}
+			}
+			document.getElementById("comparison").innerHTML += counter +"&nbsp;";
+
+			//Compares the lucky ball
+
+		}
+
+	
+	</script>
+
+</body> 
+</html>
